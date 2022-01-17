@@ -1,6 +1,7 @@
 ENV PHOENIX_VERSION 5.0.0
 
-RUN curl -s http://apache.mirror.vexxhost.com/phoenix/apache-phoenix-$PHOENIX_VERSION-HBase-HBASE_MAJOR/bin/apache-phoenix-$PHOENIX_VERSION-HBase-HBASE_MAJOR-bin.tar.gz | tar -xz -C /opt
+RUN curl -s http://apache.mirror.vexxhost.com/phoenix/apache-phoenix-5.0.0-HBase-2.0/bin/apache-phoenix-5.0.0-HBase-2.0-bin.tar.gz | tar -xz -C /opt
+#RUN curl -s http://apache.mirror.vexxhost.com/phoenix/apache-phoenix-$PHOENIX_VERSION-HBase-HBASE_MAJOR/bin/apache-phoenix-$PHOENIX_VERSION-HBase-HBASE_MAJOR-bin.tar.gz | tar -xz -C /opt
 RUN cd /opt && ln -s ./phoenix-$PHOENIX_VERSION-HBase-$HBASE_MAJOR-bin phoenix
 ENV PHOENIX_HOME /opt/phoenix
 ENV PATH $PATH:$PHOENIX_HOME/bin
