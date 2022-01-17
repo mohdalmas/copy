@@ -1,5 +1,17 @@
-groupadd hdpusers
-usermod -a -G hdpusers root
-usermod -a -G hdpusers hive
-usermod -a -G hdpusers spark
-chown -R root:hdpusers /opt/bitnami/spark/bin
+ENV PHOENIX_VERSION 5.0.0
+
+RUN curl -s http://apache.mirror.vexxhost.com/phoenix/apache-phoenix-$PHOENIX_VERSION-HBase-HBASE_MAJOR/bin/apache-phoenix-$PHOENIX_VERSION-HBase-HBASE_MAJOR-bin.tar.gz | tar -xz -C /opt
+RUN cd /opt && ln -s ./phoenix-$PHOENIX_VERSION-HBase-$HBASE_MAJOR-bin phoenix
+ENV PHOENIX_HOME /opt/phoenix
+ENV PATH $PATH:$PHOENIX_HOME/bin
+RUN cp $PHOENIX_HOME/phoenix-core-$PHOENIX_VERSION-HBase-$HBASE_MAJOR.jar $HBASE_HOME/lib/phoenix.jar
+RUN cp $PHOENIX_HOME/phoenix-server-$PHOENIX_VERSION-HBase-$HBASE_MAJOR.jar $HBASE_HOME/lib/phoenix-server.jar
+
+# bootstrap-phoenix
+#ADD bootstrap-phoenix.sh /etc/bootstrap-phoenix.sh
+#RUN chown root:root /etc/bootstrap-phoenix.sh
+#RUN chmod 700 /etc/bootstrap-phoenix.sh
+
+#CMD ["/etc/bootstrap-phoenix.sh", "-bash"]
+
+EXPOSE 8765
