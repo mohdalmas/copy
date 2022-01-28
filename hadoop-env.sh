@@ -1,3 +1,53 @@
+  hadoop-env.sh: |
+    export JAVA_HOME=${JAVA_HOME}
+    export HADOOP_HOME=/opt/hadoop
+    export HADOOP_CONF_DIR=${HADOOP_HOME}/etc/hadoop
+    #export HADOOP_HEAPSIZE_MAX=
+    export HADOOP_OPTS="-Djava.net.preferIPv4Stack=true"
+    export HADOOP_OS_TYPE=${HADOOP_OS_TYPE:-$(uname -s)} ##as it is
+    
+    export HADOOP_NAMENODE_OPTS="-Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_NAMENODE_OPTS"
+    export HADOOP_DATANODE_OPTS="-Dhadoop.security.logger=ERROR,RFAS $HADOOP_DATANODE_OPTS"
+    
+    export HADOOP_SECONDARYNAMENODE_OPTS="-Dhadoop.security.logger=${HADOOP_SECURITY_LOGGER:-INFO,RFAS} -Dhdfs.audit.logger=${HDFS_AUDIT_LOGGER:-INFO,NullAppender} $HADOOP_SECONDARYNAMENODE_OPTS"
+    
+    export HADOOP_NFS3_OPTS="$HADOOP_NFS3_OPTS"
+    export HADOOP_PORTMAP_OPTS="-Xmx512m $HADOOP_PORTMAP_OPTS"
+    Heap size
+    export HADOOP_CLIENT_OPTS="$HADOOP_CLIENT_OPTS"
+    if [ "$HADOOP_HEAPSIZE" = "" ]; then
+      export HADOOP_CLIENT_OPTS="-Xmx512m $HADOOP_CLIENT_OPTS"
+    fi
+    
+    export HADOOP_OPTIONAL_TOOLS="hadoop-azure-datalake,hadoop-azure,hadoop-openstack,hadoop-kafka,hadoop-aws,hadoop-aliyun"
+    
+    export HADOOP_SSH_OPTS="-o BatchMode=yes -o StrictHostKeyChecking=no -o ConnectTimeout=10s"
+    
+    export HADOOP_WORKERS="${HADOOP_CONF_DIR}/workers"
+    
+    export HADOOP_LOG_DIR=${HADOOP_HOME}/logs
+    
+    export HADOOP_IDENT_STRING=$USER
+    
+    export HADOOP_PID_DIR=/tmp
+    
+    export HADOOP_NICENESS=0
+    
+    export HADOOP_GC_SETTINGS="-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps"
+    
+    export HADOOP_SECURE_PID_DIR=${HADOOP_PID_DIR}
+    export HADOOP_SECURE_DN_PID_DIR=${HADOOP_PID_DIR}
+    
+    export HDFS_DATANODE_SECURE_USER=root
+    
+    export HDFS_NAMENODE_USER="root"
+    export HDFS_DATANODE_USER="root"
+    export HDFS_SECONDARYNAMENODE_USER="root"
+    export YARN_RESOURCEMANAGER_USER="root"
+    export YARN_NODEMANAGER_USER="root"
+    
+    export HDFS_BALANCER_OPTS=""
+
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
